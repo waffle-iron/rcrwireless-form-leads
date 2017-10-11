@@ -14,6 +14,11 @@ const userSchema = new Schema({
   },
   password: String,
   resetPassword: String,
+  admin: {
+    type: Boolean,
+    default: false
+  },
+  forms: Array
 }, { timestamps: true });
 
 userSchema.set('toJSON', {
