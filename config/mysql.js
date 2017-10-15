@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 module.exports = function () {
-  if (process.env.CLEARDB_DATABASE_URL) {
-    return mysql.createConnection(process.env.CLEARDB_DATABASE_URL)
+  if (process.env.JAWSDB_MARIA_URL) {
+    return mysql.createConnection(process.env.JAWSDB_MARIA_URL)
   } else {
-    return connection = mysql.createConnection({
+    return mysql.createConnection({
       host     :  process.env.MYSQL_HOST,
       user     :  process.env.MYSQL_USER,
       password :  process.env.MYSQL_PASSWORD,

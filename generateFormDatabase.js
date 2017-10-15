@@ -2,7 +2,6 @@ const fetch = require('node-fetch');
 const btoa = require('btoa');
 const fs = require('fs');
 const yosql = require('yosql');
-const mysql = require('mysql');
 const forms = [];
 let baseUrl = '';
 
