@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchForms } from '../actions';
 import Forms from '../components/Forms';
+import { Container } from 'reactstrap';
 
 class Dashboard extends Component {
 
@@ -13,10 +14,10 @@ class Dashboard extends Component {
   render() {
     const { forms } = this.props;
     return (
-      <div>
+      <Container>
         <h1 className="text-center">Your Forms</h1>
         <Forms forms={forms} />
-      </div>
+      </Container>
     )
   }
 }

@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 import configureStore from '../configureStore'
 import Dashboard from './Dashboard'
 import Form from './Form'
+import Admin from './Admin'
+import NavBar from '../components/NavBar';
 
 const store = configureStore()
 
@@ -11,13 +13,16 @@ export default class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
-          <div>
-            <Route exact path={window.location.pathname} component={Dashboard} />
-            {/* <Route path={`${window.location.pathname}admin`} component={Admin} /> */}
-            <Route path={`${window.location.pathname}forms/:id`} component={Form} />
-          </div>
-        </Router>
+        <div>
+          <Router>
+            <div>
+              <NavBar currentUser={this.props.currentUser}/>
+              <Route exact path={'/'} component={Dashboard} />
+              <Route path={`/admin`} component={Admin} />
+              <Route path={`/forms/:id`} component={Form} />
+            </div>
+          </Router>
+        </div>
       </Provider>
     )
   }

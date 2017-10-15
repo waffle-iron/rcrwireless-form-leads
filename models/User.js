@@ -10,7 +10,7 @@ const userSchema = new Schema({
     required: true,
     unique: true,
     index: true,
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/, 'Please fill a valid email address']
   },
   password: String,
   resetPassword: String,
@@ -24,6 +24,7 @@ const userSchema = new Schema({
 userSchema.set('toJSON', {
   transform: (doc, ret, options) => {
     delete ret.password;
+    delete ret.deleted;
     delete ret.__v;
     delete ret.resetPassword;
     return ret;

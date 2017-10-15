@@ -3,7 +3,7 @@ import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import Root from './containers/Root'
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-
-render(<Root />, document.getElementById('root'))
+const currentUserEl = document.querySelector('[data-current-user]');
+const currentUser = JSON.parse(currentUserEl.getAttribute('data-current-user'));
+currentUserEl.remove();
+render(<Root currentUser={currentUser} />, document.getElementById('root'))

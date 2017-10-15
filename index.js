@@ -30,7 +30,8 @@ app.use(express.static('public'));
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(flash());
 app.use(cookieParser());
 app.use(csrf({cookie: true}));
@@ -41,8 +42,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.engine('ejs', require('express-ejs-extend'));
 
-app.use('/api', require('./routes/api'));
-app.use('/', require('./routes/index'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/forms', require('./routes/forms'));
+app.use('/', require('./routes/index'))
 
 app.listen(process.env.PORT, () => {
   console.log(`Hosting on http://127.0.0.1:${process.env.PORT}`)

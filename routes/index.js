@@ -67,4 +67,15 @@ router.post('/register', (req, res) => {
   });
 });
 
+router.all('*', function(req, res) {
+  if(!req.isAuthenticated()){
+    res.redirect('/login');
+  } else {
+    res.render('index', {
+      user: req.user,
+      csrfToken: req.csrfToken()
+    });
+  }
+});
+
 module.exports = router;

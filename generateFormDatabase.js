@@ -2,9 +2,17 @@ const fetch = require('node-fetch');
 const btoa = require('btoa');
 const fs = require('fs');
 const yosql = require('yosql');
-const sqlite3 = require('sqlite3');
+const mysql = require('mysql');
 const forms = [];
 let baseUrl = '';
+
+const connection = mysql.createConnection({
+  host     :  process.env.MYSQL_HOST,
+  user     :  process.env.MYSQL_USER,
+  password :  process.env.MYSQL_PASSWORD,
+  database :  process.env.MYSQL_DATABASE,
+  socketPath: process.env.MYSQL_SOCKETPATH
+});
 
 const headers = {
   Authorization: `Basic ${btoa(`${process.env.ELOQUA_COMPANY}\\${process.env.ELOQUA_USERNAME}:${process.env.ELOQUA_PASSWORD}`)}`,
@@ -36,15 +44,14 @@ function createDatabase() {
   yosql.createTable('forms', forms, (err, schema) => {
     if (err) return console.error(err);
     console.log('finished traversing forms');
-    if (fs.existsSync('database.sqlite3')) fs.unlinkSync('database.sqlite3');
-    const db = new sqlite3.Database('database.sqlite3');
+
     console.log('running queries');
-    Object.keys(schema).forEach(table => {
-      db.serialize(() => {
-        db.run(schema[table].queries.create); // Create statement;
-        db.run(schema[table].queries.insert); // Insert statement;
-      });
+    connection.connect();
+    Object.keys(schema).forEach(table => {      
+      connection.query(`DROP TABLE IF EXISTS ${table};`)
+      connection.query(schema[table].queries.create);
+      connection.query(schema[table].queries.insert);
     });
-    db.close();
+    connection.end();
   });
 }

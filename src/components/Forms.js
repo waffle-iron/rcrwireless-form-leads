@@ -22,7 +22,6 @@ class Forms extends Component {
   }
 
   handleFormClick(e, state, rowInfo, column, instance) {
-    // console.log('here')
     this.setState({
       formId: rowInfo.original.id,
       navigate: true

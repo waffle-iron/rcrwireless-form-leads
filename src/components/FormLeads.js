@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import { Redirect } from 'react-router';
 
 class FormLeads extends Component {
   columns() {
