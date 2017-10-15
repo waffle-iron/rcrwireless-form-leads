@@ -6,14 +6,6 @@ const mysql = require('mysql');
 const forms = [];
 let baseUrl = '';
 
-const connection = mysql.createConnection({
-  host     :  process.env.MYSQL_HOST,
-  user     :  process.env.MYSQL_USER,
-  password :  process.env.MYSQL_PASSWORD,
-  database :  process.env.MYSQL_DATABASE,
-  socketPath: process.env.MYSQL_SOCKETPATH
-});
-
 const headers = {
   Authorization: `Basic ${btoa(`${process.env.ELOQUA_COMPANY}\\${process.env.ELOQUA_USERNAME}:${process.env.ELOQUA_PASSWORD}`)}`,
   Accept: 'application/json'
@@ -46,6 +38,7 @@ function createDatabase() {
     console.log('finished traversing forms');
 
     console.log('running queries');
+    const connection = require('./config/mysql')();
     connection.connect();
     Object.keys(schema).forEach(table => {      
       connection.query(`DROP TABLE IF EXISTS ${table};`)
