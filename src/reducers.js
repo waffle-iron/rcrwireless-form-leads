@@ -38,7 +38,9 @@ function users(state = [], action) {
     case RECEIVE_USERS:
       return action.users
     case RECEIVE_USER:
-      return state.slice().splice(state.findIndex(item => item._id === action.user._id), 1, action.user);
+      const newState = state.slice()
+      newState.splice(state.findIndex(item => item._id === action.user._id), 1, action.user);
+      return newState;
     default:
       return state
   }
